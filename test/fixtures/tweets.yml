@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  song: MyString
+  artist: MyString
+  overall: 1
+  level: 1
+  comment: MyString
+
+two:
+  song: MyString
+  artist: MyString
+  overall: 1
+  level: 1
+  comment: MyString

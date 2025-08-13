@@ -1,0 +1,151 @@
+KARAOKE
+今日は、何歌おう。
+Tier
+エントリー＞
+
+
+
+　Stier
+ ・S
+ ・ブチ上がり確定！
+ 　これ歌っとけば間違いなし。
+ ・Stier用の投稿箱×4   
+  　ジャケ写
+    曲名
+    アーティスト名
+    グッドボタン　いいね数
+
+
+<div class="bg_test">
+    <div class="bg_test-text">
+    </div>
+</div>
+
+<!-- S ティア -->
+<div class="tier tier-s">
+  <p class="tier-copy">
+    ブチ上がり確定！<br>
+    これ歌っとけば間違いなし。
+  </p>
+  <div class="tier-mark">S</div>
+  <div class="bg_test">
+    <div class="bg_test-text">
+    </div>
+</div>
+  <% @foods = @s_tier %>
+  <div class="rank-row">
+    <% @foods.each do |t| %>
+      <div class="rank-card">
+        <div class="thumb">
+          <% if t.image.attached? %>
+            <%= image_tag t.image %>
+          <% end %>
+        </div>
+        <div class="body">
+          <div class="title"><%= t.song %></div>
+          <div class="artist"><%= t.artist %></div>
+          <div class="score">いいねのコード</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div> 
+
+
+A+tier
+ ・これを歌わずには帰れない！
+ 　みんな知ってる最強ソング。
+ ・A+tier用の投稿箱×6   
+  　ジャケ写
+    曲名
+    アーティスト名
+    グッドボタン　いいね数
+
+<!-- A+ ティア -->
+<div class="tier tier-a+">
+  <p class="tier-copy">
+     これを歌わずには帰れない！<br>
+     みんな知ってる最強ソング。
+  </p>
+  <div class="tier-mark">A+</div>
+  <% @foods = @a+_tier %>
+  <div class="rank-row">
+    <% @foods.each do |t| %>
+      <div class="rank-card">
+        <div class="thumb">
+          <% if t.image.attached? %>
+            <%= image_tag t.image %>
+          <% end %>
+        </div>
+        <div class="body">
+          <div class="title"><%= t.song %></div>
+          <div class="artist"><%= t.artist %></div>
+          <div class="score">いいねのコード</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div> 
+
+
+Atier
+ ・まだまだ歌い足りない？
+ 　もっとアゲていこ！
+ ・Atier用の投稿箱×10  
+  　ジャケ写
+    曲名
+    アーティスト名
+    グッドボタン いいね数
+
+<!-- A ティア -->
+<div class="tier tier-a">
+  <p class="tier-copy">
+     これを歌わずには帰れない！<br>
+     みんな知ってる最強ソング。
+  </p>
+  <div class="tier-mark">A</div>
+  <% @foods = @a_tier %>
+  <div class="rank-row">
+    <% @foods.each do |t| %>
+      <div class="rank-card">
+        <div class="thumb">
+          <% if t.image.attached? %>
+            <%= image_tag t.image %>
+          <% end %>
+        </div>
+        <div class="body">
+          <div class="title"><%= t.song %></div>
+          <div class="artist"><%= t.artist %></div>
+          <div class="score">いいねのコード</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div> 
+
+Pick up
+ ・隠れた名曲たち。新たな出会いがあるかも…！
+ ・Pick up用の投稿箱×15 
+    曲名 アーティスト名 グッドボタン いいね数
+
+<!-- Pick up -->
+<div class="tier pick up">
+  <p class="tier-copy">
+     隠れた名曲たち。新たな出会いがあるかも…！
+  </p>
+  <div class="tier-mark">Pick up</div>
+  <% @foods = @pick up_tier %>
+  <div class="rank-row">
+    <% @foods.each do |t| %>
+      <div class="rank-card">
+        <div class="thumb">
+        </div>
+        <div class="body">
+          <div class="title"><%= t.song %></div>
+          <div class="artist"><%= t.artist %></div>
+          <div class="score">いいねのコード</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div> 

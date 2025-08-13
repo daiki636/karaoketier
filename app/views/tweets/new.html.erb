@@ -1,0 +1,70 @@
+<h1>karaoketier</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @tweet do |f| %>
+<div class='form-group'>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+
+ <h5>総合評価</h5>
+     <div class="post_form">
+        <%= f.radio_button :overall, 5 ,id: 'star1'%>
+        <label for="star1"><span class="text">5</span>★</label>
+    
+        <%= f.radio_button :overall, 4 ,id: 'star2'%>
+        <label for="star2"><span class="text">4</span>★</label>
+    
+        <%= f.radio_button :overall, 3 ,id: 'star3'%>
+        <label for="star3"><span class="text">3</span>★</label>
+    
+        <%= f.radio_button :overall, 2 ,id: 'star4'%>
+        <label for="star4"><span class="text">2</span>★</label>
+    
+        <%= f.radio_button :overall, 1 ,id: 'star5'%>
+        <label for="star5"><span class="text">1</span>★</label>
+     </div>
+
+# データ型がstringで自由記述の入力フォーム
+  <div class="field">
+    <%= f.label :song %>
+    <%= f.text_field :song, :size => 30 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+# データ型がstringで自由記述の入力フォーム
+  <div class="field">
+    <%= f.label :artist %>
+    <%= f.text_field :artist, :size => 30 %>
+  </div>
+
+# データ型がintegerで数字のみを入力するフォーム
+  <div class="field">
+    <%= f.label :overall  %>
+    <%= f.number_field :overall, :size => 10 %>
+  </div>
+
+# データ型がintegerで数字のみを入力するフォーム
+  <div class="field">
+    <%= f.label :level  %>
+    <%= f.number_field :level, :size => 10 %>
+  </div>
+
+# データ型がstringで自由記述の入力フォーム
+  <div class="field">
+    <%= f.label :comment %>
+    <%= f.text_field :comment, :size => 30 %>
+  </div>
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", tweets_path %>

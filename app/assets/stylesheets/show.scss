@@ -1,0 +1,183 @@
+/* --- 詳細ページ全体のスタイル --- */
+.detail-page-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+}
+
+.detail-main-layout {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+}
+
+/* --- 左側のカード --- */
+.detail-left-card {
+  flex: 1;
+  background-color: #1a1a1a;
+  border-radius: 25px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  color: white;
+}
+
+.detail-image-area {
+  width: 100%;
+  padding-top: 100%; /* 正方形を維持 */
+  position: relative;
+  background-color: #333;
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+.detail-image-area img, .detail-image-area .no-image-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.detail-image-area .no-image-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.detail-info {
+  margin-bottom: auto; /* 編集ボタンを一番下に配置するため */
+}
+
+.song-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.artist-name {
+  font-size: 18px;
+  color: #bbb;
+  margin: 0;
+}
+
+/* 投稿者用の編集・削除ボタン */
+.owner-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  border-top: 1px solid #444;
+  padding-top: 20px;
+}
+
+.owner-actions .edit-link, .owner-actions .delete-button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.edit-link {
+  background-color: #555;
+  color: white;
+}
+
+.delete-button {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  font-size: 14px; /* button_toのデフォルトサイズ調整 */
+  font-family: inherit;
+}
+
+/* --- 右側の難易度・知名度エリア --- */
+.detail-right-metrics {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+
+.metric-group {
+  width: 100%;
+}
+
+.metric-group h3 {
+  font-size: 16px;
+  color: #888;
+  margin: 0 0 10px 0;
+}
+
+.metric-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+.metric-bar {
+  height: 100%;
+  background-color: #888;
+  border-radius: 5px;
+}
+
+.metric-value {
+  display: block;
+  text-align: right;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* --- いいねセクション --- */
+.like-section {
+  margin-top: 20px;
+}
+
+.like-button {
+  display: inline-block;
+  padding: 12px 25px;
+  border: 2px solid #ddd;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #555;
+  transition: all 0.2s;
+}
+.like-button:hover {
+  background-color: #f0f0f0;
+}
+.like-button.unlike {
+  border-color: #ff8a80;
+  background-color: #ff8a80;
+  color: white;
+}
+.like-button.unlike:hover {
+  background-color: #ff5252;
+}
+.like-count {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+
+
+/* --- 戻るリンク --- */
+.back-link-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.back-link {
+  color: #888;
+}

@@ -75,4 +75,12 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  # config/environments/development.rb
+  config.force_ssl = false
+  config.assets.compile = true
+  config.assets.precompile += %w( application.js )
+end
+# ファイルキャッシュの代わりにメモリキャッシュを使う（Windowsのrenameバグ対策）
+  Rails.application.config.assets.configure do |env|
+  env.cache = Sprockets::Cache::MemoryStore.new
 end

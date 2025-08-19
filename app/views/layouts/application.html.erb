@@ -8,22 +8,27 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-  </head>
+    </head>
 
   <body>
     <header>
-  <h1>karaoketier</h1>
-  <div class="header-list">
-   <ul>
-    <% if user_signed_in? %>
-     <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-    <% else %>
-     <li><%= link_to "新規登録", new_user_registration_path %></li>
-     <li><%= link_to "ログイン", new_user_session_path %></li>
-    <% end %>
-   </ul>
-  </div>
- </header>
+  <%# ロゴをクリックしたらトップページに戻るようにリンクを設定 %>
+  <%= link_to root_path, class: "header-logo" do %>
+    <%# image_tagで画像を表示。ファイル名は手順1で変更したものに合わせる %>
+    <%= image_tag 'logo.long.png', alt: 'Karaoke Tier Logo' %>
+  <% end %>
+
+  <div class="header-list">
+   <ul>
+    <% if user_signed_in? %>
+     <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+    <% else %>
+     <li><%= link_to "新規登録", new_user_registration_path %></li>
+     <li><%= link_to "ログイン", new_user_session_path %></li>
+    <% end %>
+   </ul>
+  </div>
+</header>
  <main>
   <%= yield %>
  </main>

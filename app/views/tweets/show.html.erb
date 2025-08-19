@@ -1,38 +1,75 @@
 <h1>karaoketier</h1>
 <h3>投稿詳細</h3>
-<div class="tweet">
-  <p><%= @tweet.comment %></p>
-  <p><%= @tweet.created_at %></p>
-  <p><%= @tweet.overall %>
-  <p><%= @tweet.level %>
-  <p><%= @tweet.comment %>
-   <% if user_signed_in? %>
-      <% if current_user.already_liked?(@tweet) %>
-        <%= link_to tweet_like_path(@tweet), method: :delete do %>
-          <p>いいねを取り消す</p><%= @tweet.likes.count %>
+<%# --- ▼▼▼ ここから全体を置き換え ▼▼▼ --- %>
+<div class="detail-page-container">
+
+  <div class="detail-main-layout">
+    <div class="detail-left-card">
+      
+      <div class="detail-image-area">
+        <% if @tweet.image.attached? %>
+          <%= image_tag @tweet.image %>
+        <% else %>
+          <div class="no-image-text">no image</div>
         <% end %>
-      <% else %>
-        <%= link_to tweet_likes_path(@tweet), method: :post do %>
-          <p>いいね</p><%= @tweet.likes.count %>
-        <% end %>
+      </div>
+
+      <div class="detail-info">
+        <h2 class="song-title"><%= @tweet.song %></h2>
+        <p class="artist-name"><%= @tweet.artist %></p>
+      </div>
+
+      <%# --- 投稿者のみに表示される編集・削除ボタン --- %>
+      <% if user_signed_in? && current_user.id == @tweet.user_id %>
+        <div class="owner-actions">
+          <%= link_to "編集", edit_tweet_path(@tweet.id), class: 'edit-link' %>
+          <%= button_to "削除", tweet_path(@tweet.id), method: :delete, class: 'delete-button', data: { confirm: '本当に削除しますか？' } %>
+        </div>
       <% end %>
-    <% else %>
-      <p>いいねの数 = </p><%= @tweet.likes.count %>
-    <% end %>
-  <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+
+    </div>
+
+    <div class="detail-right-metrics">
+      
+      <div class="metric-group">
+        <h3>難易度</h3>
+        <div class="metric-bar-container">
+          <div class="metric-bar" style="width: <%= @tweet.difficulty.to_f * 10 %>%;"></div>
+        </div>
+        <span class="metric-value"><%= @tweet.difficulty.to_f.round(1) %></span>
+      </div>
+      
+      <div class="metric-group">
+        <h3>知名度</h3>
+        <div class="metric-bar-container">
+          <div class="metric-bar" style="width: <%= @tweet.fame.to_f * 10 %>%;"></div>
+        </div>
+        <span class="metric-value"><%= @tweet.fame.to_f.round(1) %></span>
+      </div>
+
+      <%# --- いいね機能 --- %>
+      <div class="like-section">
+        <% if user_signed_in? %>
+          <% if current_user.already_liked?(@tweet) %>
+            <%= button_to tweet_like_path(@tweet), method: :delete, class: 'like-button unlike' do %>
+              ❤️ いいねを取り消す (<%= @tweet.likes.count %>)
+            <% end %>
+          <% else %>
+            <%= button_to tweet_likes_path(@tweet), method: :post, class: 'like-button' do %>
+              🤍 いいねする (<%= @tweet.likes.count %>)
+            <% end %>
+          <% end %>
+        <% else %>
+          <p class="like-count">❤️ <%= @tweet.likes.count %> いいね</p>
+        <% end %>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="back-link-container">
+    <%= link_to "一覧に戻る", tweets_path, class: 'back-link' %>
+  </div>
+
 </div>
-
-<h2>いいねしたユーザー</h2>
-<% @tweet.liked_users.each do |user| %>
-  <li><%= user.email %></li>
-<% end %>
-
-<%= link_to "Tweet一覧に戻る", tweets_path %>
-<% if user_signed_in? && current_user.id ==@tweet.user_id %>
-      <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
-      <%= button_to "削除する", tweet_path(@tweet.id), method: :delete %>
-     <% end %>
-
-<% @tweet.tags.each do |tag| %>
-    <span><%= tag.name %></span>
-<% end %>
+<%# --- ▲▲▲ ここまで全体を置き換え ▲▲▲ --- %>

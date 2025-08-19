@@ -1,18 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users
-# ルートページ
- 
 
-  # tweetsのルーティングをまとめて定義
- get 'tier/html' => 'tier#html'
+  # ルートページ
+  root 'tweets#index'
+
   resources :tweets do
-  resources :likes, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+
+    collection do
+      get :tier   # ← ここでランキングページを追加
+    end
+  end
 
   # ヘルスチェック（必要であれば）
   get "up" => "rails/health#show", as: :rails_health_check
-  end
-
-
-
-   root 'tweets#index'
 end

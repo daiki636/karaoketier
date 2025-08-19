@@ -1,0 +1,416 @@
+/* --- 全体の設定 --- */
+:root {
+    --color-s: #5900d9;
+    --color-a: #2e97ff;
+    --color-b: #8cd0ff;
+    --font-main: 'Noto Sans JP', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* --- ヘッダー --- */
+/* 既存のヘッダーデザインを元に戻します */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 15px 30px; /* 少し余白を追加 */
+}
+
+.logo-title {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 900;
+    color: #000;
+    line-height: 1;
+    text-decoration: none; /* aタグの場合を想定 */
+}
+
+/* ログアウトボタンなどのエリア */
+.user-area {
+    list-style: none; /* liタグの黒点を削除 */
+    margin: 0;
+    padding: 0;
+}
+
+.user-area a, .user-area button {
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+/* --- 各Tierセクションの共通設定 --- */
+.tier-section {
+    max-width: 900px;
+    margin: 0 auto 80px auto; /* 中央寄せ */
+    padding: 15px;
+    position: relative;
+}
+
+.tier-description {
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* 巨大文字のスタイル */
+.tier-section::before {
+    content: 'S';
+    position: absolute;
+    font-size: 250px;
+    font-weight: 900;
+    color: var(--color-s);
+    opacity: 0.15;
+    z-index: -1;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tier-section.tier-a::before {
+    content: 'A';
+    color: var(--color-a);
+}
+.tier-section.tier-b::before {
+    content: 'B';
+    color: var(--color-b);
+}
+
+/* --- カードグリッドのスタイル --- */
+.card-grid {
+    display: grid;
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.grid-s {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* --- カード自体のスタイル --- */
+.card {
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0px 8px 0px 0px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    text-decoration: none;
+    color: white; /* テキストの色を白に */
+}
+
+.card:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+}
+
+.card-s {
+    background-color: var(--color-s);
+}
+
+/* Sランクのカードの傾き */
+.grid-s .card:nth-child(1) { transform: rotate(-5deg); }
+.grid-s .card:nth-child(2) { transform: rotate(3deg); }
+.grid-s .card:nth-child(3) { transform: rotate(-4deg); }
+
+
+/* --- カード内の要素のスタイル --- */
+/* ↓↓↓ ここから置き換え ↓↓↓ */
+
+/* 画像を囲むコンテナのスタイル */
+.card-image {
+    width: 100%;
+    height: 160px; /* Sランクの画像エリアの高さに固定 */
+    border-radius: 12px;
+    background-color: #3e0094; /* Sランクの背景色より少し暗い色 */
+    
+    /* 中の要素（画像やテキスト）を中央に配置するための設定 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 実際に表示される画像のスタイル */
+.card-image img {
+    width: 100%;
+    height: 100%; /* 親要素いっぱいに広げる */
+    object-fit: cover;
+    border-radius: 12px; /* コンテナと同じ角丸 */
+}
+
+/* 「no image」テキストのスタイル */
+.no-image-text {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+/* Aランク、Bランク用の高さも指定 */
+.a-tier .card-image {
+    height: 120px;
+    background-color: #1f7bce;
+}
+.b-tier .card-image {
+    height: 80px;
+    background-color: #71b8e6;
+}
+
+/* ↑↑↑ ここまで置き換え ↑↑↑ */
+
+.card-info {
+    padding: 12px 5px 5px 5px;
+}
+
+.card-info > p:first-of-type { /* 曲名 */
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.card-info .artist { /* アーティスト名 */
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* --- いいねボタンのスタイル --- */
+.card-info span form {
+    margin: 0; /* button_toが生成するformの余白を削除 */
+}
+
+.card-info span button {
+    background: rgba(255, 255, 255, 0.2); /* 半透明の白 */
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    border-radius: 15px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: var(--font-main);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.card-info span button:hover {
+    background: rgba(255, 255, 255, 0.4); /* ホバー時にもう少し濃く */
+}
+
+/* ボタン内のpタグのスタイル */
+.card-info span button p {
+    margin: 0;
+    display: inline-block; /* 横並びにする */
+    margin-right: 8px; /* 文字と数字の間隔 */
+}
+
+/* --- A+ ランクのスタイル --- */
+.tier-Aplus .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.card-Aplus {
+    background-color: var(--color-a); /* 変数で定義した青色 */
+}
+
+.tier-Aplus .card-image {
+    height: 120px;
+    background-color: #1f7bce;
+}
+
+/* A+ランクカードの傾き */
+.grid-Aplus .card:nth-child(odd) { transform: rotate(-4deg); }
+.grid-Aplus .card:nth-child(even) { transform: rotate(4deg); }
+
+
+/* --- A ランクのスタイル --- */
+.tier-A .card-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3列で表示 */
+}
+
+.card-A {
+    background-color: var(--color-b); /* 変数で定義した水色 */
+}
+
+.tier-A .card-image {
+    height: 80px;
+    background-color: #71b8e6;
+}
+
+/* Aランクカードの傾き */
+.grid-A .card:nth-child(odd) { transform: rotate(5deg); }
+.grid-A .card:nth-child(even) { transform: rotate(-5deg); }
+
+
+/* --- 巨大文字のスタイル --- */
+.tier-section.tier-Aplus::before {
+    content: 'A';
+    color: var(--color-a);
+}
+
+.tier-section.tier-A::before {
+    content: 'A'; 
+    color: var(--color-b);
+}
+
+/* --- ヘッダーのスタイル --- */
+.site-header {
+    text-align: center; /* ロゴを中央揃えにする */
+    padding: 40px 20px; /* 上下の余白を多めに、左右に少し余白をとる */
+    max-width: 600px;   /* ロゴが大きくなりすぎないように最大幅を指定 */
+    margin: 0 auto;     /* ヘッダー自体をページの中央に配置 */
+}
+
+.site-header img {
+    width: 100%;       /* 親要素の幅いっぱいに画像を表示 */
+    height: auto;      /* 画像の縦横比を保つ */
+}
+
+/* フォントは一般的なゴシック体を指定しています */
+/* --- 変更・追記ここから --- */
+
+body {
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  background-color: #ffffff; /* 背景を薄い緑色に設定 */
+  margin: 0; /* ブラウザ標準の余白をリセット */
+}
+
+/* 【追記】ページ全体を中央揃えにするためのラッパー */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 水平方向の中央揃え */
+  justify-content: center; /* 垂直方向の中央揃え */
+  min-height: 100vh; /* 画面全体の高さを確保 */
+  box-sizing: border-box;
+}
+
+/* 【追記】白文字のメインタイトル */
+.main-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 文字を読みやすくするための影 */
+  margin-bottom: 24px; /* 下の表との余白 */
+}
+
+/* 【変更】Pick upセクションのマージンを調整 */
+.tier-section.tier-pickup {
+  background-color: #e0ffff;
+  padding: 24px;
+  border-radius: 12px;
+  border: 2px solid #a1ffff;
+  /* margin: 20px; ← この行を削除、またはコメントアウトしてください */
+  max-width: 600px;
+  width: 90%; 
+  box-sizing: border-box;
+}
+
+/* --- 追記・変更ここまで --- */
+
+
+/* ↓↓↓ 以下、既存のCSSは変更なし（そのままでOK） ↓↓↓ */
+
+.pickup-description {
+  font-size: 14px;
+  color: #555;
+  margin: 0 0 24px 0;
+}
+
+.song-list-pickup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 曲ごとのアイテム（aタグ）のスタイル */
+.song-item {
+  display: flex; /* 子要素を横並びにする */
+  align-items: center; /* 子要素を垂直方向の中央に揃える */
+  /* justify-content は使いません */
+}
+
+/* 曲名、アーティスト名、スコアの各要素に適用 */
+.song-title,
+.song-artist,
+.song-score {
+  /* flex: 1; を指定して3つの要素が均等にスペースを分け合うようにする */
+  flex: 1;
+  box-sizing: border-box;
+  padding: 0 8px; /* 要素の左右に少し余白を持たせる */
+}
+
+/* 曲名のスタイル */
+.song-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+  text-align: left; /* 左揃え */
+}
+
+/* アーティスト名のスタイル */
+.song-artist {
+  font-size: 16px; /* 曲名より少し小さくするとバランスが良くなります */
+  color: #555;
+  text-align: center; /* 中央揃え */
+}
+
+/* スコア（いいね）のスタイル */
+.song-score {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  
+  /* 中の要素を右端に配置する */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+
+/* --- PickUpセクション いいねボタンのスタイル --- */
+
+/* button_toが作るformの余白をなくす */
+.song-score form {
+  margin: 0;
+}
+
+/* いいねボタンの基本スタイル */
+.song-score .like-button {
+  background: none; /* 背景を透明に */
+  border: none; /* 枠線をなくす */
+  padding: 0; /* 内側の余白をなくす */
+  cursor: pointer; /* カーソルを指マークに */
+  font-size: 18px; /* アイコンと数字のサイズ */
+  color: #a0a0a0; /* デフォルトの色（未いいね状態） */
+  transition: all 0.2s ease; /* アニメーション効果 */
+}
+
+/* ボタンにマウスカーソルを乗せたとき */
+.song-score .like-button:hover {
+  transform: scale(1.15); /* 少し拡大する */
+}
+
+/* いいね済み（.likedクラスが付いた）ボタンのスタイル */
+.song-score .like-button.liked {
+  color: #ff4081; /* いいね済みの色（例：ピンク系） */
+}
+
+/* ログインしていないユーザー向けの表示スタイル */
+.song-score .like-display {
+  font-size: 18px;
+  color: #a0a0a0;
+}

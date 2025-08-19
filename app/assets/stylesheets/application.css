@@ -10,9 +10,42 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ * ここにCSSファイルを読み込む命令を記述します
+ *= require top
  *= require_tree .
  *= require_self
  */
+
+/* application.css などに追記 */
+
+/* ヘッダー全体のスタイル */
+header {
+  display: flex; /* 要素を横並びにする */
+  justify-content: space-between; /* 両端に寄せる */
+  align-items: center; /* 上下の位置を中央に揃える */
+  padding: 10px 40px; /* 上下左右に余白を設定 */
+  background-color: #ffffff; /* 背景色を白に */
+  border-bottom: 1px solid #e0e0e0; /* 下に薄い境界線を引く */
+}
+
+/* ロゴのスタイル */
+.header-logo img {
+  height: 40px; /* ロゴの高さを指定（お好みのサイズに調整してください） */
+  width: auto;  /* 横幅は高さに合わせて自動調整 */
+}
+
+/* 右側のメニューリストのスタイル */
+.header-list ul {
+  display: flex; /* li要素を横並びにする */
+  list-style: none; /* ・を消す */
+  margin: 0;
+  padding: 0;
+}
+
+.header-list li {
+  margin-left: 20px; /* 各メニューの間に余白を設ける */
+}
+
 
 .tweet_form{
     display: flex;
@@ -81,5 +114,3 @@
     color: #ccc;
     
   }
-
-  

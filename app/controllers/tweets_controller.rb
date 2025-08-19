@@ -67,25 +67,26 @@ def show
   @tweet = Tweet.find(params[:id])
 end
 
+def tier
+    base = Tweet
+          .left_joins(:likes)
+          .group('tweets.id')
+          .order(Arel.sql('COUNT(likes.id) DESC'))
+  # ※ユーザー単位で数えるなら ↑ を COUNT(DISTINCT likes.user_id) に
+  @s_tier     = base.limit(3)           # 1〜3位（3件）
+  @Aplus_tier = base.offset(3).limit(6) # 4〜9位（6件）
+  @A_tier     = base.offset(9).limit(9) # 10〜18位（9件）
+  top18_ids = base.limit(18).pluck(:id)
+  rand_sql  = ActiveRecord::Base.connection.adapter_name =~ /mysql/i ? 'RAND()' : 'RANDOM()'
+  @pickup_tier = Tweet.where(id: top18_ids).order(Arel.sql(rand_sql)).limit(15)
+end
+
   private
   def tweet_params
-    params.require(:tweet).permit(:song, :artist, :overall, :level, :comment, :image, tag_ids: [])
+    params.require(:tweet).permit(:song, :artist, :overall, :level, :comment, :image, :difficulty, :fame, tag_ids: [])
   end
  #ここまで
 
- def tweet_params
-  params.require(:tweet).permit(:song, :artist, :comment, :image, :overall, :tier, tag_ids: [])
-end
-
-
-class SongsController < ApplicationController
-  def index
-    # 各ティアごとに曲を取得するロジック
-    @s_tier = Song.where(tier: 'S').order(likes_count: :desc)
-    @a_plus_tier = Song.where(tier: 'A+').order(likes_count: :desc)
-    @a_tier = Song.where(tier: 'A').order(likes_count: :desc)
-    @pickup_tier = Song.where(pickup: true).order(created_at: :desc)
-  end
 end
 
 
@@ -94,4 +95,5 @@ end
 
 
 
-end
+
+

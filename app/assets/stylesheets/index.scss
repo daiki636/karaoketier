@@ -1,0 +1,187 @@
+/* ===============================================
+   ページ全体の基本スタイル
+   =============================================== */
+body {
+  background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h3 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+/* ===============================================
+   検索フォームのスタイル
+   =============================================== */
+.search-form-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 40px;
+  text-align: center;
+
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+    margin-right: 10px;
+  }
+
+  input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #2980b9;
+    }
+  }
+}
+
+
+/* ===============================================
+   投稿一覧（グリッドレイアウト）
+   =============================================== */
+.tweets-container {
+  display: grid;
+  // レスポンシブに列数を調整します
+  // 画面幅に応じて、最低320pxのカードを可能な限り配置
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px; /* カード間の余白 */
+}
+
+
+/* ===============================================
+   投稿カードのスタイル
+   =============================================== */
+.tweet {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden; /* 角丸からはみ出した画像を隠す */
+  display: flex;
+  flex-direction: column; /* 中の要素を縦に並べる */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px); /* 少し浮き上がる */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+}
+
+/* --- カード内のコンテンツ --- */
+.tweet-content {
+  padding: 20px;
+  flex-grow: 1; /* コンテンツ部分がカードの高さを埋めるように */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 投稿画像 */
+.tweet img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* 画像の比率を保ったままトリミング */
+}
+
+/* 曲名・アーティスト名など */
+.tweet p {
+  margin: 4px 0;
+}
+
+.tweet .song-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.tweet .artist-name {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-bottom: 16px;
+}
+
+.tweet .user-email {
+  font-size: 0.9rem;
+  color: #95a5a6;
+  margin-bottom: 16px;
+}
+
+/* TIERランク */
+.tier-rank {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* --- カード下部のアクションボタン --- */
+.tweet-actions {
+  margin-top: auto; /* ボタン類をカードの一番下に配置する */
+  padding-top: 16px; /* 上の要素との余白 */
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tweet-actions a, .tweet-actions form {
+  display: inline-block;
+}
+
+/* いいねボタン */
+.like-button button {
+  background: none;
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #e74c3c;
+    color: white;
+  }
+}
+
+/* 詳細・編集・削除リンク */
+.action-links a {
+  color: #3498db;
+  text-decoration: none;
+  margin-left: 12px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #2980b9;
+  }
+}
+
+.action-links button {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 12px;
+  font-size: 1em; /* aタグとフォントサイズを合わせる */
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

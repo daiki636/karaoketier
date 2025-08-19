@@ -42,3 +42,27 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+# config/puma.rb
+max_threads = ENV.fetch("RAILS_MAX_THREADS", 5).to_i
+min_threads = ENV.fetch("RAILS_MIN_THREADS", max_threads).to_i
+threads min_threads, max_threads
+
+environment ENV.fetch("RAILS_ENV", "development")
+
+# 開発でポートを変えたい場合は ENV で上書き可
+port ENV.fetch("PORT", 3000)
+
+# Windows は cluster mode(= workers)非対応。Linux(本番)だけ有効化。
+unless Gem.win_platform?
+  wc = ENV.fetch("WEB_CONCURRENCY", "0").to_i
+  if wc > 0
+    workers wc
+    preload_app!
+  end
+end
+
+# dev のみ長めのタイムアウト
+worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
+
+plugin :tmp_restart

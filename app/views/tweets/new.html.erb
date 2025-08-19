@@ -1,70 +1,103 @@
-<h1>karaoketier</h1>
-<h3>新規投稿ページ</h3>
-<%= form_for @tweet do |f| %>
-<div class='form-group'>
-        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
-            <div class='form-check'>
-                <%= tag.label class: 'form-check-label' do %>
-                    <%= tag.check_box class: 'form-check-input' %>
-                    <%= tag.text %>
-                <% end %>
-            </div>
+<%# --- ▼▼▼ ここからフォーム全体を置き換え ▼▼▼ --- %>
+<div class="form-page-container">
+  <h1>新規投稿</h1>
+
+  <%= form_for @tweet, html: { class: 'karaoke-form' } do |f| %>
+    <div class="form-main-layout">
+      
+      <div class="form-left-card">
+        
+        <%# 画像アップロードエリア %>
+        <%= f.label :image, class: 'image-upload-label' do %>
+          <span>ジャケ写を挿入</span>
+          <%= f.file_field :image, class: 'hidden-file-input' %>
         <% end %>
+
+        <%# 曲名入力 %>
+        <div class="field">
+          <%= f.text_field :song, placeholder: "曲名を入力" %>
+        </div>
+
+        <%# アーティスト名入力 %>
+        <div class="field">
+          <%= f.text_field :artist, placeholder: "アーティスト名を入力" %>
+        </div>
+
+      </div>
+
+      <div class="form-right-sliders">
+        
+        <%# 難易度スライダー %>
+        <div class="slider-group">
+          <%= f.label :difficulty, "難易度" %>
+          <div class="slider-wrapper">
+            <%= f.range_field :difficulty, in: 0..10, step: 0.1, value: 7.5 %>
+            <span class="slider-value" id="difficulty_value">7.5</span>
+            <div class="slider-track-background"></div>
+          </div>
+        </div>
+        
+        <%# 知名度スライダー %>
+        <div class="slider-group">
+          <%= f.label :fame, "知名度" %>
+          <div class="slider-wrapper">
+            <%= f.range_field :fame, in: 0..10, step: 0.1, value: 3.0 %>
+            <span class="slider-value" id="fame_value">3.0</span>
+            <div class="slider-track-background"></div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
- <h5>総合評価</h5>
-     <div class="post_form">
-        <%= f.radio_button :overall, 5 ,id: 'star1'%>
-        <label for="star1"><span class="text">5</span>★</label>
+    <%# 送信ボタン %>
+    <%= f.submit "エントリー", class: 'submit-button' %>
+  <% end %>
+
+  <%= link_to "一覧に戻る", tweets_path, class: 'back-link' %>
+</div>
+<%# --- ▲▲▲ ここまでフォーム全体を置き換え ▲▲▲ --- %>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // スライダーの値と位置を更新する関数
+  function updateSlider(slider, valueDisplay) {
+    // 1. 値のテキストを更新
+    const value = parseFloat(slider.value).toFixed(1);
+    valueDisplay.textContent = value;
+
+    // 2. 値の表示位置を計算して更新
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
+    const percent = (slider.value - min) / (max - min);
+    const sliderWidth = slider.offsetWidth;
+    const thumbWidth = 24; // CSSで指定したツマミの幅
+    const offset = (sliderWidth - thumbWidth) * percent + (thumbWidth / 2);
     
-        <%= f.radio_button :overall, 4 ,id: 'star2'%>
-        <label for="star2"><span class="text">4</span>★</label>
-    
-        <%= f.radio_button :overall, 3 ,id: 'star3'%>
-        <label for="star3"><span class="text">3</span>★</label>
-    
-        <%= f.radio_button :overall, 2 ,id: 'star4'%>
-        <label for="star4"><span class="text">2</span>★</label>
-    
-        <%= f.radio_button :overall, 1 ,id: 'star5'%>
-        <label for="star5"><span class="text">1</span>★</label>
-     </div>
+    valueDisplay.style.left = `${offset}px`;
+  }
 
-# データ型がstringで自由記述の入力フォーム
-  <div class="field">
-    <%= f.label :song %>
-    <%= f.text_field :song, :size => 30 %>
-  </div>
+  // 難易度スライダーの設定
+  const difficultySlider = document.querySelector('input[name="tweet[difficulty]"]');
+  const difficultyValue = document.getElementById("difficulty_value");
+  
+  // 知名度スライダーの設定
+  const fameSlider = document.querySelector('input[name="tweet[fame]"]');
+  const fameValue = document.getElementById("fame_value");
 
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
+  if (difficultySlider && fameSlider) {
+    // ページ読み込み時に初期位置をセット
+    updateSlider(difficultySlider, difficultyValue);
+    updateSlider(fameSlider, fameValue);
 
-# データ型がstringで自由記述の入力フォーム
-  <div class="field">
-    <%= f.label :artist %>
-    <%= f.text_field :artist, :size => 30 %>
-  </div>
+    // スライダーを動かした時
+    difficultySlider.addEventListener("input", () => {
+      updateSlider(difficultySlider, difficultyValue);
+    });
 
-# データ型がintegerで数字のみを入力するフォーム
-  <div class="field">
-    <%= f.label :overall  %>
-    <%= f.number_field :overall, :size => 10 %>
-  </div>
-
-# データ型がintegerで数字のみを入力するフォーム
-  <div class="field">
-    <%= f.label :level  %>
-    <%= f.number_field :level, :size => 10 %>
-  </div>
-
-# データ型がstringで自由記述の入力フォーム
-  <div class="field">
-    <%= f.label :comment %>
-    <%= f.text_field :comment, :size => 30 %>
-  </div>
-  <%= f.submit "投稿する" %>
-<% end %>
-
-<%= link_to "一覧に戻る", tweets_path %>
+    fameSlider.addEventListener("input", () => {
+      updateSlider(fameSlider, fameValue);
+    });
+  }
+});
+</script>

@@ -1,0 +1,104 @@
+/* --- ページ全体の基本設定 --- */
+.top-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh; /* 画面の高さの90%を使う */
+  width: 100%;
+  font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+  position: relative; /* マイクアイコンを配置するため */
+  overflow: hidden; /* はみ出した要素を隠す */
+}
+
+/* --- メインキャッチコピー --- */
+.main-title {
+  font-size: 5rem; /* 文字サイズを大きく */
+  font-weight: 900; /* 文字を太く */
+  color: #222;
+  margin-bottom: 60px;
+}
+
+/* --- 3つのリンクのコンテナ --- */
+.cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px; /* 各要素の間隔 */
+}
+
+/* --- 3つのリンク共通のスタイル --- */
+.cta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s ease-in-out; /* ホバー時のアニメーション */
+}
+
+.cta-item:hover {
+  transform: scale(1.05); /* 少し拡大する */
+  opacity: 0.8;
+}
+
+/* --- 1. 検索する --- */
+.search-cta .icon-circle {
+  width: 150px;
+  height: 150px;
+  border: 10px solid #87CEEB; /* 水色の枠線 */
+  border-radius: 50%; /* 完全な円にする */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search-cta img {
+  width: 80px; /* アイコン画像のサイズ */
+  height: 80px;
+}
+
+.search-cta span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+/* --- 2. Tier表をみる --- */
+.tier-cta .tier-s {
+  font-size: 12rem; /* Sの文字を巨大に */
+  font-weight: 900;
+  color: #9370DB; /* 紫色 */
+  line-height: 1; /* 行の高さを詰める */
+}
+
+.tier-cta span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: -20px; /* Sの文字に少し重ねる */
+}
+
+
+/* --- 3. エントリー --- */
+.entry-cta {
+  background-color: #00BFFF; /* 青色 */
+  color: white;
+  padding: 20px 40px;
+  border-radius: 50px; /* 角を丸くする */
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --- マイクのアイコン --- */
+.mic-icon {
+  position: absolute; /* 親要素を基準に絶対配置 */
+  top: 20%;
+  right: 15%;
+  width: 100px; /* アイコンのサイズ */
+  transform: rotate(25deg); /* 少し回転させる */
+  opacity: 0.8;
+}

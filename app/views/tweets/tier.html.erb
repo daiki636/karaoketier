@@ -1,151 +1,158 @@
-KARAOKE
-今日は、何歌おう。
-Tier
-エントリー＞
+<body>
+    <header class="site-header">
+        <%= image_tag 'logo.png', alt: 'カラオケティア ロゴ' %>
+    </header>
+
+    <main>
+        <section class="tier-section tier-s">
+            <p class="tier-description">ブチ上がり確定！<br>これ歌っとけば間違いないし～</p>
+            <div class="card-grid grid-s">
+                <% @s_tier.each do |t| %>
+                    <%# カード全体ではなく、画像とテキスト情報で要素を分ける %>
+                    <div class="card card-s">
+                        <%# 画像部分をリンクにする %>
+                        <%= link_to tweet_path(t.id), class: "card-image-link" do %>
+                            <div class="card-image">
+                                <% if t.image.attached? %>
+                                    <%= image_tag t.image %>
+                                <% else %>
+                                    <div class="no-image-text">no image</div>
+                                <% end %>
+                            </div>
+                        <% end %>
+
+                        <%# テキスト情報といいねボタン %>
+                        <div class="card-info">
+                            <p><%= t.song %></p>
+                            <p class="artist"><%= t.artist %></p>
+                            <span>
+                                <% if user_signed_in? %>
+                                    <% if current_user.already_liked?(t) %>
+                                        <%= button_to(tweet_like_path(id: t.id, tweet_id: t.id), method: :delete) do %>
+                                            <p>いいねを取り消す</p><%= t.likes.count %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= button_to(tweet_likes_path(id: t.id, tweet_id: t.id), method: :post) do %>
+                                            <p>いいね</p><%= t.likes.count %>
+                                        <% end %>
+                                    <% end %>
+                                <% else %>
+                                    <p>いいねの数 = <%= t.likes.count %></p>
+                                <% end %>
+                            </span>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </section>
+
+        <section class="tier-section tier-Aplus">
+            <p class="tier-description">これを歌えば君は最強ソング！<br>みんな知ってる最強ソング！</p>
+            <div class="card-grid grid-Aplus">
+                <% @Aplus_tier.each do |t| %>
+                    <div class="card card-Aplus">
+                        <%# 画像部分をリンクにする %>
+                        <%= link_to tweet_path(t.id), class: "card-image-link" do %>
+                            <div class="card-image">
+                                <% if t.image.attached? %>
+                                    <%= image_tag t.image %>
+                                <% else %>
+                                    <div class="no-image-text">no image</div>
+                                <% end %>
+                            </div>
+                        <% end %>
+
+                        <%# テキスト情報といいねボタン %>
+                        <div class="card-info">
+                            <p><%= t.song %></p>
+                            <p class="artist"><%= t.artist %></p>
+                            <span>
+                                <% if user_signed_in? %>
+                                    <% if current_user.already_liked?(t) %>
+                                        <%= button_to(tweet_like_path(id: t.id, tweet_id: t.id), method: :delete) do %>
+                                            <p>いいねを取り消す</p><%= t.likes.count %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= button_to(tweet_likes_path(id: t.id, tweet_id: t.id), method: :post) do %>
+                                            <p>いいね</p><%= t.likes.count %>
+                                        <% end %>
+                                    <% end %>
+                                <% else %>
+                                    <p>いいねの数 = <%= t.likes.count %></p>
+                                <% end %>
+                            </span>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </section>
+
+        <section class="tier-section tier-A">
+            <p class="tier-description">まだまだ歌が歌い足りない？<br>もっともっといこうぜ！</p>
+            <div class="card-grid grid-A">
+                <% @A_tier.each do |t| %>
+                    <div class="card card-A">
+                        <%# 画像部分をリンクにする %>
+                        <%= link_to tweet_path(t.id), class: "card-image-link" do %>
+                            <div class="card-image">
+                                <% if t.image.attached? %>
+                                    <%= image_tag t.image %>
+                                <% else %>
+                                    <div class="no-image-text">no image</div>
+                                <% end %>
+                            </div>
+                        <% end %>
+                        <%# Aランクはテキスト情報を省略 %>
+                    </div>
+                <% end %>
+            </div>
+        </section>
 
 
+        <%# ページ全体を中央に配置するためのラッパー（囲い枠） %>
+<main class="page-wrapper">
 
-　Stier
- ・S
- ・ブチ上がり確定！
- 　これ歌っとけば間違いなし。
- ・Stier用の投稿箱×4   
-  　ジャケ写
-    曲名
-    アーティスト名
-    グッドボタン　いいね数
+  <%# 白文字で表示する新しいタイトル %>
+  <h1 class="main-title">pick up</h1>
 
+  <%# ↓↓↓ ここから下がリスト表示の本体 ↓↓↓ %>
+  <section class="tier-section tier-pickup">
 
-<div class="bg_test">
-    <div class="bg_test-text">
+    <p class="pickup-description">隠れた名曲たち。新たな出会いがあるかも…！</p>
+
+    <div class="song-list-pickup">
+      <% @pickup_tier.each do |t| %>
+        <%# 各曲の情報をすべてリンク（link_to）で囲む %>
+        <%= link_to tweet_path(t.id), class: "song-item" do %>
+          
+          <%# 曲名とアーティスト名をまとめるdiv %>
+            <p class="song-title"><%= t.song %></p>
+            <p class="song-artist"><%= t.artist %></p>
+
+          <%# スコアを表示するdiv %>
+        <div class="song-score">
+            <% if user_signed_in? %>
+                <% if current_user.already_liked?(t) %>
+                <%# CSSでスタイルを区別するため 'liked' クラスを追加 %>
+                <%= button_to(tweet_like_path(id: t.id, tweet_id: t.id), method: :delete, class: "like-button liked") do %>
+                    👍 <%= t.likes.count %>
+                <% end %>
+                <% else %>
+                <%= button_to(tweet_likes_path(id: t.id, tweet_id: t.id), method: :post, class: "like-button") do %>
+                    👍 <%= t.likes.count %>
+                <% end %>
+                <% end %>
+            <% else %>
+                <%# ログインしていないユーザー向けの表示 %>
+                <span class="like-display">
+                👍 <%= t.likes.count %>
+                </span>
+            <% end %>
+        </div>
+        <% end %>
+      <% end %>
     </div>
-</div>
-
-<!-- S ティア -->
-<div class="tier tier-s">
-  <p class="tier-copy">
-    ブチ上がり確定！<br>
-    これ歌っとけば間違いなし。
-  </p>
-  <div class="tier-mark">S</div>
-  <div class="bg_test">
-    <div class="bg_test-text">
-    </div>
-</div>
-  <% @foods = @s_tier %>
-  <div class="rank-row">
-    <% @foods.each do |t| %>
-      <div class="rank-card">
-        <div class="thumb">
-          <% if t.image.attached? %>
-            <%= image_tag t.image %>
-          <% end %>
-        </div>
-        <div class="body">
-          <div class="title"><%= t.song %></div>
-          <div class="artist"><%= t.artist %></div>
-          <div class="score">いいねのコード</div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div> 
-
-
-A+tier
- ・これを歌わずには帰れない！
- 　みんな知ってる最強ソング。
- ・A+tier用の投稿箱×6   
-  　ジャケ写
-    曲名
-    アーティスト名
-    グッドボタン　いいね数
-
-<!-- A+ ティア -->
-<div class="tier tier-a+">
-  <p class="tier-copy">
-     これを歌わずには帰れない！<br>
-     みんな知ってる最強ソング。
-  </p>
-  <div class="tier-mark">A+</div>
-  <% @foods = @a+_tier %>
-  <div class="rank-row">
-    <% @foods.each do |t| %>
-      <div class="rank-card">
-        <div class="thumb">
-          <% if t.image.attached? %>
-            <%= image_tag t.image %>
-          <% end %>
-        </div>
-        <div class="body">
-          <div class="title"><%= t.song %></div>
-          <div class="artist"><%= t.artist %></div>
-          <div class="score">いいねのコード</div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div> 
-
-
-Atier
- ・まだまだ歌い足りない？
- 　もっとアゲていこ！
- ・Atier用の投稿箱×10  
-  　ジャケ写
-    曲名
-    アーティスト名
-    グッドボタン いいね数
-
-<!-- A ティア -->
-<div class="tier tier-a">
-  <p class="tier-copy">
-     これを歌わずには帰れない！<br>
-     みんな知ってる最強ソング。
-  </p>
-  <div class="tier-mark">A</div>
-  <% @foods = @a_tier %>
-  <div class="rank-row">
-    <% @foods.each do |t| %>
-      <div class="rank-card">
-        <div class="thumb">
-          <% if t.image.attached? %>
-            <%= image_tag t.image %>
-          <% end %>
-        </div>
-        <div class="body">
-          <div class="title"><%= t.song %></div>
-          <div class="artist"><%= t.artist %></div>
-          <div class="score">いいねのコード</div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div> 
-
-Pick up
- ・隠れた名曲たち。新たな出会いがあるかも…！
- ・Pick up用の投稿箱×15 
-    曲名 アーティスト名 グッドボタン いいね数
-
-<!-- Pick up -->
-<div class="tier pick up">
-  <p class="tier-copy">
-     隠れた名曲たち。新たな出会いがあるかも…！
-  </p>
-  <div class="tier-mark">Pick up</div>
-  <% @foods = @pick up_tier %>
-  <div class="rank-row">
-    <% @foods.each do |t| %>
-      <div class="rank-card">
-        <div class="thumb">
-        </div>
-        <div class="body">
-          <div class="title"><%= t.song %></div>
-          <div class="artist"><%= t.artist %></div>
-          <div class="score">いいねのコード</div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div> 
+  </section>
+        
+    </main>
+</body>

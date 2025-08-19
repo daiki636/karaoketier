@@ -1,0 +1,200 @@
+/* --- 投稿フォーム全体のスタイル --- */
+.form-page-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+}
+
+.form-page-container h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.karaoke-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ボタンを中央寄せ */
+}
+
+.form-main-layout {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+}
+
+/* --- 左側のカード --- */
+.form-left-card {
+  flex: 1;
+  background-color: #1a1a1a;
+  border-radius: 25px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.image-upload-label {
+  flex-grow: 1;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+}
+.image-upload-label:hover {
+  background-color: #d0d0d0;
+}
+
+.hidden-file-input {
+  display: none; /* 実際のinputボタンは隠す */
+}
+
+.form-left-card .field input[type="text"] {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #555;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  outline: none;
+  box-sizing: border-box;
+}
+.form-left-card .field input[type="text"]::placeholder {
+  color: #999;
+}
+
+
+/* --- 右側のスライダー --- */
+.form-right-sliders {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+}
+
+.slider-group {
+  position: relative;
+}
+.slider-group label {
+  font-weight: bold;
+  color: #888;
+  margin-bottom: 40px; /* スライダーとの余白 */
+  display: block;
+}
+
+.slider-wrapper {
+  position: relative;
+}
+
+/* スライダーの値 */
+.slider-value {
+  position: absolute;
+  bottom: 30px; /* スライダーの上に配置 */
+  left: 50%; /* JSで位置を調整 */
+  transform: translateX(-50%);
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  pointer-events: none; /* クリックをスルーさせる */
+}
+/* 値の吹き出しのしっぽ */
+.slider-value::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #f0f0f0;
+}
+
+/* スライダーのトラックとツマミの共通設定 */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  background: transparent; /* トラックの背景は疑似要素で描画 */
+  outline: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* スライダーのツマミ(thumb) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  border: 4px solid #f0f0f0;
+  cursor: pointer;
+  margin-top: -7px; /* トラックの中央に配置 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  border: 4px solid #f0f0f0;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* スライダーの背景トラック */
+.slider-track-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+
+/* --- 送信ボタンと戻るリンク --- */
+.submit-button {
+  background: #00bfff;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 40px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+}
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 191, 255, 0.5);
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #888;
+}

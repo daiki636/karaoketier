@@ -58,10 +58,14 @@ end
   end
 
 def destroy
+  begin
     tweet = Tweet.find(params[:id])
     tweet.destroy
-    redirect_to action: :index
+    redirect_to action: :index, notice: '投稿を削除しました。'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to action: :index, alert: 'お探しの投稿は見つかりませんでした。'
   end
+end
 
 def show
   @tweet = Tweet.find(params[:id])

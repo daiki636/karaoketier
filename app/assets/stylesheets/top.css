@@ -96,9 +96,9 @@
 /* --- マイクのアイコン --- */
 .mic-icon {
   position: absolute; /* 親要素を基準に絶対配置 */
-  top: 20%;
+  top: 45%;
   right: 15%;
-  width: 100px; /* アイコンのサイズ */
+  width: 80px; /* アイコンのサイズ */
   transform: rotate(25deg); /* 少し回転させる */
   opacity: 0.8;
 }

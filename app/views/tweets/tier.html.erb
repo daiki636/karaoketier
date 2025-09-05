@@ -5,7 +5,7 @@
 
     <main>
         <section class="tier-section tier-s">
-            <p class="tier-description">ブチ上がり確定！<br>これ歌っとけば間違いないし～</p>
+            <p class="tier-description">ブチ上がり確定！<br>これ歌っとけば間違いなし</p>
             <div class="card-grid grid-s">
                 <% @s_tier.each do |t| %>
                     <%# カード全体ではなく、画像とテキスト情報で要素を分ける %>
@@ -47,7 +47,7 @@
         </section>
 
         <section class="tier-section tier-Aplus">
-            <p class="tier-description">これを歌えば君は最強ソング！<br>みんな知ってる最強ソング！</p>
+            <p class="tier-description">これを歌わずには帰れない！<br>みんな知ってる最強ソング！</p>
             <div class="card-grid grid-Aplus">
                 <% @Aplus_tier.each do |t| %>
                     <div class="card card-Aplus">
@@ -88,7 +88,7 @@
         </section>
 
         <section class="tier-section tier-A">
-            <p class="tier-description">まだまだ歌が歌い足りない？<br>もっともっといこうぜ！</p>
+            <p class="tier-description">まだまだ歌が歌い足りない？<br>もっとアガってこ！</p>
             <div class="card-grid grid-A">
                 <% @A_tier.each do |t| %>
                     <div class="card card-A">
@@ -100,9 +100,29 @@
                                 <% else %>
                                     <div class="no-image-text">no image</div>
                                 <% end %>
+
+
                             </div>
                         <% end %>
-                        <%# Aランクはテキスト情報を省略 %>
+                       <div class="card-info">
+                            <p><%= t.song %></p>
+                            <p class="artist"><%= t.artist %></p>
+                            <span>
+                                <% if user_signed_in? %>
+                                    <% if current_user.already_liked?(t) %>
+                                        <%= button_to(tweet_like_path(id: t.id, tweet_id: t.id), method: :delete) do %>
+                                            <p>いいねを取り消す</p><%= t.likes.count %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= button_to(tweet_likes_path(id: t.id, tweet_id: t.id), method: :post) do %>
+                                            <p>いいね</p><%= t.likes.count %>
+                                        <% end %>
+                                    <% end %>
+                                <% else %>
+                                    <p>いいねの数 = <%= t.likes.count %></p>
+                                <% end %>
+                            </span>
+                        </div>
                     </div>
                 <% end %>
             </div>
@@ -152,7 +172,7 @@
         <% end %>
       <% end %>
     </div>
-  </section>
+  <
         
     </main>
 </body>
